@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kong.board.mappers.cscenter">
+	<!-- 방명록 전체 목록 -->
+	<select id="csCenterList" resultType="kong.my.domain.CsCenterVO">
+		select
+	 		idx, 
+	 		writer, 
+	 		subject, 
+	 		SUBSTR(content,1,10) as content, 
+	 		writedate
+	 	from cscenter
+	</select>
+	 <!-- 방명록 등록  -->
+    <insert id="csCentercreate">
+	    insert into cscenter (idx, writer, subject, content, writedate)
+	    values (NEXTVAL('seq_idx'), #{writer}, #{subject}, #{content}, NOW())
+    </insert>
+    
+ 	 <!--  게시글 상세정보  -->
+    <select id="csCenterDetail" resultType="kong.my.domain.CsCenterVO">
+        select  idx, writer, subject, content, writedate
+        from cscenter where idx = #{idx}
+    </select>
+</mapper>
