@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
  <h2>Detail page</h2>
@@ -28,5 +29,7 @@
         </tr>
         <tr><td>내용</td><td>${data.content}</td></tr>
     </table>
+    <a href = "/csCenter/csCenterUpdate?idx=${data.idx }" role="button" class="btn btn-outline-info">수정</a>
+    <a href = "/csCenter/csCenterDelete?idx=${data.idx }" role="button" class="btn btn-outline-info">삭제</a>
 </body>
 </html>

@@ -19,4 +19,10 @@ public interface csCenterDAO {
 	
 	// 방명록 상세 보기
 	public CsCenterVO csCenterDetail(int idx);
+	
+	// 방명록 글 수정하기
+	public void csCenterUpdate(CsCenterVO vo);
+	
+	// 방명록 글 삭제하기
+	public void csCenterDelete(int idx);
 }

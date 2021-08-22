@@ -3,6 +3,7 @@ package kong.my.project;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,12 +41,49 @@ public class CscenterController {
 	    	service.csCenterCreate(vo);
 	       return "redirect:csCenterList";
 	    }
-	 // 게시물 상세 페이지로 이동
+	 // 방명록 상세 페이지로 이동
 	    @RequestMapping(value = "/csCenterDetail", method = RequestMethod.GET)
 	    public String getdetail(Model model, int idx) {
-	    	CsCenterVO data = service.csCenterDetail(idx);//idx값 넘김
+	    	CsCenterVO data = service.csCenterDetail(idx); //idx값 넘김
 	    	model.addAttribute("data",data);
 	       return "csCenter/csCenterDetail";
 	    }
-	  
+	    // 방명록 수정 페이지로 이동
+	    @RequestMapping(value = "/csCenterUpdate", method = RequestMethod.GET)
+	    public String getupdate(int idx, Model model) throws Exception {
+	    	CsCenterVO data = service.csCenterDetail(idx); //idx값 넘김
+	    	model.addAttribute("data",data);
+	       return "csCenter/csCenterUpdate";
+	    } 
+	    // 방명록 수정 post
+	    @RequestMapping(value="/csCenterUpdate", method=RequestMethod.POST)
+	    public String postupdate(CsCenterVO vo) throws Exception {
+	        service.csCenterUpdate(vo);
+	        return "redirect:csCenterList"; // 리스트로 리다이렉트
+	    }
+	    
+	    // 방명록 삭제
+	    @RequestMapping(value = "/csCenterDelete", method = RequestMethod.GET)
+	    public String postdelete(int idx) throws Exception {
+	    	service.csCenterDelete(idx);
+	       return "redirect:csCenterList";
+	    }
+	    //게시물 선택삭제
+	    @RequestMapping(value = "/delete")
+	    public String ajaxTest(HttpServletRequest request) {
+	            
+	        String[] ajaxMsg = request.getParameterValues("valueArr");
+	       
+	        // 형변환
+	        int[] ajaxVal = new int[ajaxMsg.length];
+	        for(int i = 0; i<ajaxMsg.length; i++) {
+	        	ajaxVal[i] = Integer.parseInt(ajaxMsg[i]);
+	        }
+	        
+	        int size = ajaxMsg.length;
+	        for(int i = 0; i<size; i++) {
+	        	service.csCenterDelete(ajaxVal[i]);
+	        }
+	        return "redirect:csCenterList";
+	    }
 }

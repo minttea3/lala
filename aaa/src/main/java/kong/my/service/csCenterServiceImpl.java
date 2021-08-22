@@ -30,4 +30,15 @@ public class csCenterServiceImpl implements csCenterService {
 		return dao.csCenterDetail(idx);
 	}
 	
+	// 방명록 수정
+	@Override
+	public void csCenterUpdate(CsCenterVO vo) {
+		dao.csCenterUpdate(vo);
+	}
+	
+	// 방명록 삭제
+	public void csCenterDelete(int idx) {
+		dao.csCenterDelete(idx);
+	}
+
 }

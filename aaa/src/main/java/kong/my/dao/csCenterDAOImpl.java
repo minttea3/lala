@@ -23,15 +23,25 @@ public class csCenterDAOImpl implements csCenterDAO {
 	} 
 		
 	// 방명록 글쓰기
+	@Override
 	public void csCenterCreate(CsCenterVO vo) {
 		sql.insert(namespace+ ".csCentercreate", vo);
 	}
 	
-	//// 방명록 상세 보기
+	// 방명록 상세 보기
+	@Override
 	public CsCenterVO csCenterDetail(int idx) {
 		return sql.selectOne(namespace+ ".csCenterDetail", idx);
 	}
-	
-	
+	// 방명록 글 수정하기
+	public void csCenterUpdate(CsCenterVO vo) {
+		sql.update(namespace+".csCenterUpDate", vo);
+	}
+		
+	// 방명록 글 삭제하기
+	@Override
+	public void csCenterDelete(int idx) {
+		sql.delete(namespace+".csCenterDelete", idx);
+	}
 
 }
