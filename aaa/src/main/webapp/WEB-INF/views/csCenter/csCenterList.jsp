@@ -64,9 +64,37 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1> 방명록 😊<h1>
+<article>
+		<form name="csCenterSearch" action="${path}/csCenter/csCenterSearch">
+			<legend style="font-size: 15px">작성자 이름으로 검색</legend>
+			<table style="background-color:yellow;">
+				<tr>
+					<th style="font-size: 15px">작성자</th>
+					<td><input type="text" name="writer"></td>
+					<td align="center"><input type="submit" value="사원 검색">
+				</tr>
+			</table>
+		</form>
+</article>
+<article>
+		<form name="csCenterAllSearch" action="${path}/csCenter/csCenterAllSearch" enctype="multipart/form-data">
+			<legend style="font-size: 15px">사원 정보 여러 조건으로  검색</legend>
+			<table style="background-color:silver;">
+				<tr>
+					<th style="font-size: 15px">순번</th>
+					<td><input type="text" name="idx" value=""></td>
+					<th style="font-size: 15px">작성자</th>
+					<td><input type="text" name="writer" value=""></td>
+					<th style="font-size: 15px">작성일자</th>
+					<td><input type="text" name="writedate" value=""></td>
+					<td align="center"><input type="submit" value="사원 검색">
+				</tr>
+			</table>
+		</form>
+	</article>
+
 <form name="userForm">
-	<h1> 방명록 😊<h1>
-	<!-- <div> 글을 남겨 주세요~ </div> -->
 	<table border="1" cellspacing="0">
 		<!--  <thead> -->
 			  <tr>
@@ -92,7 +120,7 @@
 			</c:forEach>
 		 <!-- </tbody> -->
 	</table>
-	<a href="<c:url value='/csCenter/csCenterCreate'/>" role="button" class="btn btn-outline-info">글쓰기</a>
+	<a href="<c:url value='/csCenter/csCenterCreate'/>" role="button" class="btn btn-outline-info"  style="font-size: 15px">글쓰기</a>
 	<input type="button" value="선택 삭제" class="btn btn-outline-info" onclick="deleteValue();">
 </form>
 </body>

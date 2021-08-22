@@ -37,5 +37,46 @@
         delete from cscenter
         where idx=#{idx}
     </delete>
-    
+    <!-- 작성한 사람 이름으로 검색하기 -->
+    <select id="csCenterSearch" resultType="kong.my.domain.CsCenterVO">
+  		select idx, 
+	 		writer, 
+	 		subject, 
+	 		SUBSTR(content,1,10) as content, 
+	 		writedate 
+		from cscenter where writer  LIKE '%'||#{writer}||'%'
+  	</select>
+  	<!-- 사원번호, 사원이름, 입사일자로 검색  -->
+	<select id="csCenterAllSearch" resultType="kong.my.domain.CsCenterVO">
+		select idx, 
+	 		writer, 
+	 		subject, 
+	 		SUBSTR(content,1,10) as content, 
+	 		writedate 
+		from cscenter 
+		where 1=1
+		<choose>
+			<when test="idx != null">
+				and idx = #{idx}
+			</when>
+			<when test="writer != null">
+				and writer = #{writer} 
+			</when>
+			<when test="writedate != null">
+				and writedate =  #{writedate}
+			</when> 
+			<when test="idx == null and writer =='' and writedate == null">
+				and idx = null
+				and writer = ''
+				and writedate = null
+			</when>
+			
+			<!-- <otherwise>
+				where idx = #{idx}
+				and writer = #{writer}
+				and writedate =  to_date(#{writedate},'YYYY-MM-DD')
+			</otherwise> -->
+		</choose>
+		
+  	</select>
 </mapper>

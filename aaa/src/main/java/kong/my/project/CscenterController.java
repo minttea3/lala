@@ -1,10 +1,17 @@
 package kong.my.project;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +75,7 @@ public class CscenterController {
 	    	service.csCenterDelete(idx);
 	       return "redirect:csCenterList";
 	    }
-	    //게시물 선택삭제
+	    // 게시물 선택삭제
 	    @RequestMapping(value = "/delete")
 	    public String ajaxTest(HttpServletRequest request) {
 	            
@@ -85,5 +92,68 @@ public class CscenterController {
 	        	service.csCenterDelete(ajaxVal[i]);
 	        }
 	        return "redirect:csCenterList";
+	    }
+	    
+	    // 작성자 이름으로 검색
+	    @RequestMapping(value = "/csCenterSearch", method = RequestMethod.GET)
+	    public String csCenterSearchList(String writer, Model model) throws IOException{
+	    	List<CsCenterVO> list = service.csCenterWriterList(writer);
+	    	model.addAttribute( "list", list );
+	    	return "csCenter/csCenterList";
+	    }
+	    // 순번, 작성자, 날짜로 검색 
+	   
+	    @RequestMapping(value = "/csCenterAllSearch", method = RequestMethod.GET)
+	    public String csCenterAllSearchList(String idx, String writer, String writedate, Model model) throws IOException{
+	    	
+	    	Map<String, Object> map = new HashMap<String,Object>();
+			
+			  if(idx.equals("")) { 
+				  
+			  }else { 
+				int idxx=Integer.parseInt(idx);
+				map.put("idx",idxx); 
+			  
+			  }
+			  System.out.println("writedate"+writedate);
+			  
+			  
+			  if(writedate.equals("")) { 
+				  
+			  }else { 
+				  System.out.println("ok");
+				  SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
+				  SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");
+				  
+				  java.util.Date tempDate = null;
+				  String str = null;
+					try {
+						 tempDate = beforeFormat.parse(writedate);
+						 System.out.println(tempDate); 
+						 str = afterFormat.format(tempDate);
+						 map.put("writedate",tempDate);
+						  System.out.println("writedate"+writedate);
+
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//String transDate = afterFormat.format(tempDate);
+					 //Date d = Date.valueOf(transDate);
+
+					
+				
+				  
+				  
+			  }
+			 
+			 
+	    	//map.put("idx", idx);
+	    	map.put("writer", writer);
+	    	List<CsCenterVO> list = service.csCenterAllSearchList(map);
+	    	
+	    	model.addAttribute( "list", list );
+	    	return "csCenter/csCenterList";
 	    }
 }

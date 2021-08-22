@@ -1,6 +1,7 @@
 package kong.my.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kong.my.domain.CsCenterVO;
 
@@ -25,4 +26,10 @@ public interface csCenterDAO {
 	
 	// 방명록 글 삭제하기
 	public void csCenterDelete(int idx);
+	
+	// 작성자 이름으로 검색하기
+	public List<CsCenterVO> csCenterWriterList(String writer);
+	
+	// 여러 조건으로 검색하기 (순번, 작성자, 날짜)
+	public List<CsCenterVO> csCenterAllSearchList(Map<String,Object> map);
 }

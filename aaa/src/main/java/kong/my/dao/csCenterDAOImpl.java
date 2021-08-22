@@ -1,6 +1,7 @@
 package kong.my.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -43,5 +44,16 @@ public class csCenterDAOImpl implements csCenterDAO {
 	public void csCenterDelete(int idx) {
 		sql.delete(namespace+".csCenterDelete", idx);
 	}
+	// 작성자 이름으로 검색하기
+	@Override
+	public List<CsCenterVO> csCenterWriterList(String writer) {
+		return sql.selectList(namespace + ".csCenterSearch", writer);
+	}
+	// 여러 조건으로 검색하기 (순번, 작성자, 날짜)
+	@Override
+	public List<CsCenterVO> csCenterAllSearchList(Map<String,Object> map) {
+		return sql.selectList(namespace + ".csCenterAllSearch", map);
+	}
+	
 
 }
