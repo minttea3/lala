@@ -44,7 +44,15 @@
 	 		subject, 
 	 		SUBSTR(content,1,10) as content, 
 	 		writedate 
-		from cscenter where writer  LIKE '%'||#{writer}||'%'
+		from cscenter 
+		where 1=1
+		<if test="writer == null or writer ==''">
+		and writer = ''
+		</if>
+		<if test="writer != null or writer !=''">
+		and writer LIKE '%'#{writer}'%'
+		</if>
+		
   	</select>
   	<!-- 사원번호, 사원이름, 입사일자로 검색  -->
 	<select id="csCenterAllSearch" resultType="kong.my.domain.CsCenterVO">
@@ -55,28 +63,19 @@
 	 		writedate 
 		from cscenter 
 		where 1=1
-		<choose>
-			<when test="idx != null">
-				and idx = #{idx}
-			</when>
-			<when test="writer != null">
-				and writer = #{writer} 
-			</when>
-			<when test="writedate != null">
-				and writedate =  #{writedate}
-			</when> 
-			<when test="idx == null and writer =='' and writedate == null">
-				and idx = null
-				and writer = ''
-				and writedate = null
-			</when>
-			
-			<!-- <otherwise>
-				where idx = #{idx}
-				and writer = #{writer}
-				and writedate =  to_date(#{writedate},'YYYY-MM-DD')
-			</otherwise> -->
-		</choose>
-		
+		<if test="idx != null">
+		and idx = #{idx}
+		</if>
+		<if test="writer != ''">
+		and writer = #{writer} 
+		</if>
+		<if test="writedate != null">
+		and writedate =  #{writedate} 
+		</if>
+		<if test="idx == null and writer == '' and writedate == null">
+		and idx = null
+		and writer = ''
+		and writedate = null
+		</if>
   	</select>
 </mapper>

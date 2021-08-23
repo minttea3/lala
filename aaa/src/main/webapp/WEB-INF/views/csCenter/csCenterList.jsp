@@ -100,7 +100,7 @@
 			  <tr>
 			  <th><input id="allCheck" type="checkbox" name="allCheck"></th>
 				  <th> No. </th>
-				  <th>글쓴이</th>
+				  <th>작성자</th>
 				  <th>제목</th>
 				  <th>내용</th>
 				  <th>작성일</th>
@@ -108,6 +108,9 @@
 		 <!-- </thead> -->
 		 
 		<!--  <tbody> -->
+			<c:if test="${empty list }">
+				<td colspan="6">조회된 내역이 없습니다.</td>
+			</c:if>
 			 <c:forEach items="${list}" var="list">
 				 <tr>
 				 	<td><input name="RowCheck" type="checkbox" value="${list.idx }"></td>
@@ -118,6 +121,7 @@
 		            <td><fmt:formatDate value="${list.writedate}" pattern="yyyy년 MM월 dd일" /></td>
 				 </tr>
 			</c:forEach>
+			
 		 <!-- </tbody> -->
 	</table>
 	<a href="<c:url value='/csCenter/csCenterCreate'/>" role="button" class="btn btn-outline-info"  style="font-size: 15px">글쓰기</a>
