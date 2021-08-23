@@ -11,6 +11,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<a href='<c:url value='/csCenter/csCenterList'/>' role="button" class="btn btn-outline-info">방명록 게시판 들어가기~ </a>
+<a href='<c:url value='/csCenter/csCenterList'/>' role="button" class="btn btn-outline-info">방명록 게시판 들어가기~ </a><br>
+<a href='<c:url value='/hotPlace/hotPlaceList'/>' role="button" class="btn btn-outline-info">핫플레이스 보러가기~ </a>
 </body>
 </html>
